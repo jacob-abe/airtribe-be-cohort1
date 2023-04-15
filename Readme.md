@@ -9,6 +9,7 @@
 
 ## Contributions:
 
+- Feel free to fork or make PRs
 - Main is a protected branch, make PRs to it.
 - Any PRs that help docummentation or improve code, handle extra cases welcome.
 - Long live Open Source.
