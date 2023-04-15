@@ -1,0 +1,19 @@
+{
+  "name": "1-node-fundamentals",
+  "version": "1.0.0",
+  "description": "Introductory session to node, async code and getting hands dirty with debugging",
+  "main": "index.js",
+  "scripts": {
+    "test": "node index.js"
+  },
+  "keywords": [
+    "airtribe",
+    "backend"
+  ],
+  "author": "Anon",
+  "license": "ISC",
+  "dependencies": {
+    "cli-color": "^2.0.3",
+    "fs": "^0.0.1-security"
+  }
+}
