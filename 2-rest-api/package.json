@@ -1,0 +1,18 @@
+{
+  "name": "2-rest-api",
+  "version": "1.0.0",
+  "description": "- Wrapped functionality which can be used by other apps/clients",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/app.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "fs": "^0.0.1-security",
+    "path": "^0.12.7"
+  }
+}
