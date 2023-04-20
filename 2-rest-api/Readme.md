@@ -1,3 +1,8 @@
+# Homework description
+
+- To run use npm start, ofc this is after npm install
+- To test use curl or for convinience swagger: http://localhost:3000/api-docs/#/
+
 # Summary Rest API 18/04/23
 
 ### What an API is?
