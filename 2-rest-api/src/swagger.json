@@ -1,0 +1,234 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Task Manager API",
+    "version": "1.0.0",
+    "description": "A simple API for managing tasks"
+  },
+  "basePath": "/api",
+  "tags": [
+    {
+      "name": "tasks",
+      "description": "Operations on tasks"
+    }
+  ],
+  "paths": {
+    "/tasks": {
+      "get": {
+        "tags": ["tasks"],
+        "summary": "Get all tasks",
+        "parameters": [
+          {
+            "name": "completed",
+            "in": "query",
+            "description": "Filter tasks based on completion status (true/false)",
+            "type": "boolean"
+          },
+          {
+            "name": "sortBy",
+            "in": "query",
+            "description": "Sort tasks by a specific field",
+            "type": "string",
+            "enum": ["createdAt", "id", "title"]
+          },
+          {
+            "name": "sortOrder",
+            "in": "query",
+            "description": "Sort order (asc/desc)",
+            "type": "string",
+            "enum": ["asc", "desc"]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Task"
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["tasks"],
+        "summary": "Create a new task",
+        "parameters": [
+          {
+            "name": "task",
+            "in": "body",
+            "description": "The task to create",
+            "schema": {
+              "$ref": "#/definitions/TaskInput"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Task"
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/tasks/{id}": {
+      "get": {
+        "tags": ["tasks"],
+        "summary": "Get a task by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "The ID of the task",
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Task"
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "put": {
+        "tags": ["tasks"],
+        "summary": "Update a task by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "The ID of the task",
+            "type": "integer"
+          },
+          {
+            "name": "task",
+            "in": "body",
+            "description": "The task to update",
+            "schema": {
+              "$ref": "#/definitions/TaskInput"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Task"
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["tasks"],
+        "summary": "Delete a task by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "The ID of the task",
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/tasks/priority/{level}": {
+      "get": {
+        "tags": ["tasks"],
+        "summary": "Get tasks by priority level",
+        "parameters": [
+          {
+            "name": "level",
+            "in": "path",
+            "required": true,
+            "description": "The priority level of the tasks",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Task"
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Task": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "title": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "completed": {
+          "type": "boolean"
+        },
+        "priority": {
+          "type": "string",
+          "enum": ["low", "medium", "high"]
+        }
+      }
+    },
+    "TaskInput": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "completed": {
+          "type": "boolean"
+        },
+        "priority": {
+          "type": "string",
+          "enum": ["low", "medium", "high"]
+        }
+      },
+      "required": ["title", "description", "completed"]
+    }
+  }
+}
