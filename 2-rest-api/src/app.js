@@ -35,8 +35,8 @@ let tasks = [
 const app = express();
 app.use(cors());
 app.use("/api", routes);
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+routes.use(bodyParser.urlencoded({ extended: true }));
+routes.use(bodyParser.json());
 app.use("/api-docs", swaggerConfig.serve, swaggerConfig.setup);
 
 const PORT = process.env.PORT || 3000;
@@ -96,12 +96,12 @@ routes.get("/tasks/:id", (req, res) => {
 
 // Create a new task
 routes.post("/tasks", (req, res) => {
-  const { title, description, completed } = req.body;
+  const { title, description, completed, priority } = req.body;
   if (!title || !description || completed === undefined) {
     return res.status(400).send("Invalid input");
   }
   const id = tasks.length + 1;
-  const task = { id, title, description, completed };
+  const task = { id, title, description, completed, priority };
   tasks.push(task);
   res.json(task);
 });
@@ -110,13 +110,14 @@ routes.post("/tasks", (req, res) => {
 routes.put("/tasks/:id", (req, res) => {
   const task = tasks.find((task) => task.id === parseInt(req.params.id));
   if (!task) return res.status(404).send("Task not found");
-  const { title, description, completed } = req.body;
+  const { title, description, completed, priority } = req.body;
   if (!title || !description || completed === undefined) {
     return res.status(400).send("Invalid input");
   }
   task.title = title;
   task.description = description;
   task.completed = completed;
+  task.priority = priority;
   res.json(task);
 });
 
