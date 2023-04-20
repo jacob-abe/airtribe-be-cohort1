@@ -101,7 +101,14 @@ routes.post("/tasks", (req, res) => {
     return res.status(400).send("Invalid input");
   }
   const id = tasks.length + 1;
-  const task = { id, title, description, completed, priority };
+  const task = {
+    id,
+    title,
+    description,
+    completed,
+    priority,
+    createdAt: new Date().toISOString().slice(0, 10),
+  };
   tasks.push(task);
   res.json(task);
 });
