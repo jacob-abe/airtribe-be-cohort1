@@ -12,7 +12,6 @@ const authMiddleware = (req, res, next) => {
       }
       // Find user with same name
       const dbUser = users.find((u) => u.name === user.name);
-      console.log("dbUser", users);
       req.user = dbUser;
       next();
     });
