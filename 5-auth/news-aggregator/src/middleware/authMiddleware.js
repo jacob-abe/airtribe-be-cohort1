@@ -1,5 +1,6 @@
 const jwt = require("jsonwebtoken");
 const { ACCESS_TOKEN_SECRET } = require("../config");
+const { users } = require("../controllers/authController");
 
 const authMiddleware = (req, res, next) => {
   const authHeader = req.headers.authorization;
@@ -9,7 +10,10 @@ const authMiddleware = (req, res, next) => {
       if (err) {
         return res.sendStatus(403);
       }
-      req.user = user;
+      // Find user with same name
+      const dbUser = users.find((u) => u.name === user.name);
+      console.log("dbUser", users);
+      req.user = dbUser;
       next();
     });
   } else {

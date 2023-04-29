@@ -9,7 +9,11 @@ const register = async (req, res) => {
   try {
     const salt = await bcrypt.genSalt();
     const hashedPassword = await bcrypt.hash(req.body.password, salt);
-    const user = { name: req.body.name, password: hashedPassword };
+    const user = {
+      name: req.body.name,
+      password: hashedPassword,
+      preferences: "general",
+    };
     users.push(user);
     res.status(201).send();
   } catch (error) {
