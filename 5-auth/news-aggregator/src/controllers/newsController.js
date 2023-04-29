@@ -7,13 +7,10 @@ const filterNews = async (preferences) => {
   const url = `${API_URL}`;
   const response = await axios.get(url, {
     params: {
+      apikey: API_KEY,
       lang: "en",
       country: "us",
       category: categories,
-      apiKey: API_KEY,
-    },
-    headers: {
-      Authorization: `Bearer ${API_KEY}`,
     },
   });
   return response.data.articles;
