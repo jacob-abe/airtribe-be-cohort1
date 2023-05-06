@@ -24,10 +24,10 @@ const getWithTimeout = (key, ms) => {
 
 const getNewsFromCache = async (key) => {
   try {
-    const data = await getWithTimeout(key, 2000);
+    const data = await getWithTimeout(key, 500);
     return JSON.parse(data);
   } catch (err) {
-    console.error("Error retrieving news from cache:", err);
+    //console.error("Error retrieving news from cache:", err);
     return null;
   }
 };

@@ -12,8 +12,8 @@ const { authMiddleware } = require("./middleware/authMiddleware");
 const { limiter } = require("./middleware/rateLimiter");
 
 app.use(bodyParser.json());
-app.use(authRouter);
 app.use(limiter);
+app.use(authRouter);
 app.use(authMiddleware, newsRouter);
 app.use(authMiddleware, preferencesRouter);
 
