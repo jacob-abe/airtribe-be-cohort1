@@ -1,4 +1,4 @@
-// news.js
+// routes/news.js
 const express = require("express");
 const router = express.Router();
 const { filterNews } = require("../controllers/newsController");

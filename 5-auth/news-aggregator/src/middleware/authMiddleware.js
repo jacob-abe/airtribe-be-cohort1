@@ -2,6 +2,7 @@ const jwt = require("jsonwebtoken");
 const { ACCESS_TOKEN_SECRET } = require("../config");
 const { users } = require("../controllers/authController");
 
+//middleware/authMiddleware.js
 const authMiddleware = (req, res, next) => {
   const authHeader = req.headers.authorization;
   if (authHeader) {
