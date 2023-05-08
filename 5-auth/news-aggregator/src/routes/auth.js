@@ -1,9 +1,13 @@
-// auth.js
+// routes/auth.js
 const express = require("express");
 const router = express.Router();
-const { register, login } = require("../controllers/authController");
+const {
+  register,
+  login,
+  registerValidation,
+} = require("../controllers/authController");
 
-router.post("/register", register);
+router.post("/register", registerValidation, register);
 
 router.post("/login", login);
 

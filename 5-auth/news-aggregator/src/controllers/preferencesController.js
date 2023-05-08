@@ -1,5 +1,11 @@
 // controllers/preferencesController.js
 const { users } = require("./authController");
+const { body, validationResult } = require("express-validator");
+
+// Add this validation middleware in the updatePreferences function
+const updatePreferencesValidation = [
+  body("preferences").notEmpty().withMessage("Preferences must not be empty"),
+];
 
 const getPreferences = (req, res) => {
   const user = req.user;
@@ -11,6 +17,10 @@ const getPreferences = (req, res) => {
 };
 
 const updatePreferences = (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
   const user = req.user;
   if (!user) {
     return res.sendStatus(401);
@@ -26,4 +36,5 @@ const updatePreferences = (req, res) => {
 module.exports = {
   getPreferences,
   updatePreferences,
+  updatePreferencesValidation,
 };
