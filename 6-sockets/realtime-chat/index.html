@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Real-time Chat Application</title>
+    <!-- Add any CSS stylesheets here -->
+</head>
+
+<body>
+    <!-- Add the chat room interface here -->
+    <div id="chatRoom">
+        <h2>Chat Room: <span id="roomName"></span></h2>
+        <ul id="userList"></ul>
+        <div id="messages"></div>
+        <form id="messageForm">
+            <input type="text" id="messageInput" placeholder="Type your message..." />
+            <button type="submit">Send</button>
+        </form>
+    </div>
+
+    <!-- Include the Socket.IO client library -->
+    <script src="/socket.io/socket.io.js">
+    </script>
+    <script>
+        // Connect to the Socket.IO server
+            const socket = io();
+
+            // Prompt the user to enter a username and room name
+            const username = prompt('Enter your username');
+            const room = prompt('Enter the room name');
+
+            // Join the chat room
+            socket.emit('join', username, room);
+
+            // Handle message event
+            socket.on('message', (message) => {
+                // Display the message in the chat interface
+                const messageElement = document.createElement('div');
+                messageElement.textContent = message;
+                document.body.appendChild(messageElement);
+            });
+
+            // Handle users event
+            socket.on('users', (users) => {
+                // Update the user list in the chat interface
+                const userListElement = document.getElementById('userList');
+                userListElement.innerHTML = '';
+                users.forEach((user) => {
+                    const userElement = document.createElement('li');
+                    userElement.textContent = user.username;
+                    userListElement.appendChild(userElement);
+                });
+            });
+
+            // Handle form submission
+            const form = document.getElementById('messageForm');
+            const input = document.getElementById('messageInput');
+            form.addEventListener('submit', (event) => {
+                event.preventDefault();
+                const message = input.value;
+                // Send the message to the server
+                socket.emit('message', message);
+                input.value = '';
+            });
+    </script>
+    <!-- Add your JavaScript code for handling chat events here -->
+</body>
+
+</html>
